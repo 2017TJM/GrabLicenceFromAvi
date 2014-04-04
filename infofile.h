@@ -6,11 +6,10 @@
 #include <QFile>
 #include <QTextStream>
 
-class InfoFile : public QObject
+class InfoFile
 {
-    Q_OBJECT
 public:
-    InfoFile(QString filename, QObject *parent = 0);
+    static InfoFile* getInstance();
 
     bool open();
 
@@ -22,7 +21,12 @@ public:
 
     void endText();
 
-    InfoFile& operator<<(QString text);
+    InfoFile& operator <<(QString text);
+
+    InfoFile& operator <<(int num);
+
+private:
+    InfoFile(QString filename);
 
 private:
     QString m_filename;

@@ -1,8 +1,12 @@
 #include "infofile.h"
 
+InfoFile* InfoFile::getInstance()
+{
+    static InfoFile info("./info.txt");
+    return &info;
+}
 
-InfoFile::InfoFile(QString filename, QObject *parent)
-    :QObject(parent)
+InfoFile::InfoFile(QString filename)
 {
     m_filename = filename;
     m_infofile.setFileName(m_filename);
@@ -31,5 +35,11 @@ void InfoFile::write(QString text)
 InfoFile &InfoFile::operator<<(QString text)
 {
     m_ts << text;
+    return *this;
+}
+
+InfoFile &InfoFile::operator <<(int num)
+{
+    m_ts << num;
     return *this;
 }

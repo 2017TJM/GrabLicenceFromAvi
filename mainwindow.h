@@ -6,6 +6,8 @@
 #include <QPaintEvent>
 #include <QKeyEvent>
 #include <QTimer>
+#include <QMouseEvent>
+#include <QWheelEvent>
 
 #include "videocontroller.h"
 #include "infofile.h"
@@ -28,8 +30,20 @@ public:
 
     void keyPressEvent(QKeyEvent *event);
 
+    void mousePressEvent(QMouseEvent *event);
+
+    void mouseMoveEvent(QMouseEvent *event);
+
+    void mouseReleaseEvent(QMouseEvent *event);
+
+    void wheelEvent(QWheelEvent* event);
+
 protected:
     void nextFrames();
+
+    void preFrames();
+
+    cv::Rect windowToFrame(QRect& rect);
 
 private slots:
     void on_actionOpen_avi_triggered();
@@ -45,9 +59,9 @@ private:
 
     VideoController m_controller;
 
-    InfoFile m_info;
-
     QTimer *m_timer;
+
+    QRect m_grabRect;
 };
 
 #endif // MAINWINDOW_H
